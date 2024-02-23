@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        h1 {
+            background: -webkit-linear-gradient(#241bd8, #18cbdf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-2xl">Welcome to web2062 base-project</h1>
+    <a href="add.html"><button>Add New Product</button></a>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Desc</th>
+                <th>Product Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="app">
+
+        </tbody>
+    </table>
+    <script src="main.js"></script>
+    <script>
+        getProducts().then(datas => {
+            let app = document.getElementById('app');
+            datas.forEach(data => {
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${data.name}</td>
+                    <td>${data.desc}</td>
+                    <td><img src="${data.image}" alt="${data.name}" width="100"></td>
+                    <td>
+                        <a href="update.html?id=${data.id}"><button>Edit</button></a>
+                        <button onclick="deleteProduct(${data.id})">Delete</button>
+                    </td>
+                `;
+                app.appendChild(tr);
+            });
+        })
+    </script>
+</body>
+
+</html>
